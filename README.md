@@ -4,8 +4,9 @@
 ![Schema](https://img.shields.io/badge/Schema-Star%20%26%20Snowflake-orange)
 ![Status](https://img.shields.io/badge/Project-Active-brightgreen)
 
----
 
+---
+![love]
 ## Overview
 
 This repository showcases my work in **data warehouse design and dimensional modeling**, focusing on building scalable schemas for analytical use cases.
