@@ -118,6 +118,7 @@ data-warehouse-designs/
 │
 └── README.md
 ```
+<img width="715" height="717" alt="Screenshot 2026-03-20 at 14 00 04" src="https://github.com/user-attachments/assets/5a30a182-c533-4d2d-9c69-6b1cff4e269b" />
 
 ---
 
