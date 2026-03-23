@@ -31,7 +31,7 @@ All designs follow **dimensional modeling principles**, where:
 
 ##  Projects
 
-###  Telco Churn Analysis — Star Schema
+###  Telco Churn Analysis - Star Schema
 
 ####  Schema Overview
 
