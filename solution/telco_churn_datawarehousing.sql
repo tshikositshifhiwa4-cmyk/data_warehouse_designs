@@ -1,32 +1,44 @@
-create database telco_customer_churn
-----------------------------------------------------------------------------------------
-select count (*) from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+select count (*) from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 --------------------------------------------------------------------------------------------
---cleaning the data
+--checking didtinct rows
+select distinct MultipleLines from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+select distinct OnlineSecurity from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+select distinct OnlineBackup from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+select distinct DeviceProtection from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+select distinct TechSupport from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+select distinct StreamingTV from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+select distinct StreamingMovies from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
+
+--cleaning the data
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set TotalCharges = NULL
 where TotalCharges = ' '
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set MultipleLines = 'No' where MultipleLines = 'No phone service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set OnlineSecurity = 'No' where OnlineSecurity = 'No internet service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set OnlineBackup = 'No' where OnlineBackup = 'No internet service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set DeviceProtection = 'No' where DeviceProtection = 'No internet service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set TechSupport = 'No' where TechSupport = 'No internet service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set StreamingTV = 'No' where StreamingTV = 'No internet service'
 
-update [telco_customer_churn].[dbo].[Telco_Cusomer_Churn]
+update [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn]
 set StreamingMovies = 'No' where StreamingMovies = 'No internet service'
 --------------------------------------------------------------------------------------------
  --create dimension tables
@@ -37,7 +49,7 @@ set StreamingMovies = 'No' where StreamingMovies = 'No internet service'
 				Partner,
 				Dependents
 into dim_customer
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn];
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn];
 
 --2.dim_contract
 select distinct 
@@ -45,14 +57,14 @@ select distinct
 			contract as contract_type,
 			PaperlessBilling
 into dim_contract
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn];
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn];
 
 --3. dim_payment (run from here)
 select distinct
 			row_number () over (order by PaymentMethod) as payment_id,
 			PaymentMethod as payment_method
 into dim_payment
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn];
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn];
 
 --4.dim_services
 select distinct	
@@ -67,7 +79,7 @@ select distinct
 			StreamingTV,
 			StreamingMovies
 into dim_services
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn];
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn];
 
 --5. dim_date
 create table dim_date (
@@ -98,7 +110,7 @@ create table fact_customer_churn (
 			total_charges decimal(10,2),
 			churn_flag int
 	);
-
+----------------------------------------------------------------------------------------
 --inserting data into the fact table
 insert into fact_customer_churn (
 		   customer_id,
@@ -122,7 +134,7 @@ select a.customerID,
 		   case when a.Churn = 'yes' then 1 
 				else 0 
 				end as churn_flag
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn] a
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn] a
 
 --join contract
 join dim_contract c
@@ -148,12 +160,8 @@ join dim_services s
 	--join new date
 	cross join dim_date d;
 
-		select count (*) from fact_customer_churn 
-
-		select table_name
-		from INFORMATION_SCHEMA.tables;
-
-INSERT INTO fact_customer_churn (
+--------------------------------------------------------------------------------------------
+insert into fact_customer_churn (
     customer_id,
     contract_id,
     payment_id,
@@ -165,31 +173,32 @@ INSERT INTO fact_customer_churn (
     churn_flag
 )
 
-SELECT 
+select 
     a.customerID,
 
     -- safer joins using TOP 1
-    (SELECT TOP 1 contract_id 
-     FROM dim_contract c 
-     WHERE c.contract_type = a.Contract) AS contract_id,
+    (select top 1 contract_id 
+     from dim_contract c 
+     where c.contract_type = a.Contract) as contract_id,
 
-    (SELECT TOP 1 payment_id 
-     FROM dim_payment p 
-     WHERE p.payment_method = a.PaymentMethod) AS payment_id,
+    (select top 1 payment_id 
+     from dim_payment p 
+     where p.payment_method = a.PaymentMethod) AS payment_id,
 
-    (SELECT TOP 1 service_id 
-     FROM dim_services s) AS service_id,  -- simplified
+    (select top 1 service_id 
+     from dim_services s) as service_id,  -- simplified
 
-    ABS(CHECKSUM(NEWID())) % 365 + 1 AS date_id,
+    abs(checksum(newid())) % 365 + 1 AS date_id,
 
     a.tenure,
     a.MonthlyCharges,
-    CAST(a.TotalCharges AS DECIMAL(10,2)),
+    cast(a.TotalCharges as decimal(10,2)),
 
-    CASE 
-        WHEN a.Churn = 'Yes' THEN 1 
-        ELSE 0 
-    END AS churn_flag
+    case 
+        when a.Churn = 'Yes' THEN 1 
+        else 0 
+    end as churn_flag
 
-from [telco_customer_churn].[dbo].[Telco_Cusomer_Churn] a;
-
+from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn] a;
+-----------------------------------------------------------------------------------------
+select count (*) from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn] a
