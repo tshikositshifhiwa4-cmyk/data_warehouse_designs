@@ -54,7 +54,7 @@ This model is designed to analyze **customer churn behavior** in a telecom datas
 
 ---
 
-#### 👤 Dimension Tables
+####  Dimension Tables
 
 **`dim_customer`**
 
