@@ -1,4 +1,4 @@
-# 📊 Data Warehouse Designs
+#  Data Warehouse Designs
 
 ![SQL](https://img.shields.io/badge/SQL-Data%20Modeling-blue)
 ![Schema](https://img.shields.io/badge/Schema-Star%20%26%20Snowflake-orange)
@@ -6,7 +6,7 @@
 
 ---
 
-## 📌 Overview
+##  Overview
 
 This repository showcases my work in **data warehouse design and dimensional modeling**, focusing on building scalable schemas for analytical use cases.
 
@@ -19,7 +19,7 @@ The goal is to transform raw data into **well-organized, analysis-ready models**
 
 ---
 
-## 🏗️ Data Modeling Approach
+##  Data Modeling Approach
 
 All designs follow **dimensional modeling principles**, where:
 
@@ -29,15 +29,15 @@ All designs follow **dimensional modeling principles**, where:
 
 ---
 
-## 📁 Projects
+##  Projects
 
-### 📊 Telco Churn Analysis — Star Schema
+###  Telco Churn Analysis — Star Schema
 
-#### 🧩 Schema Overview
+####  Schema Overview
 
 This model is designed to analyze **customer churn behavior** in a telecom dataset.
 
-#### 🧱 Fact Table
+####  Fact Table
 
 **`fact_churn`**
 
@@ -98,7 +98,7 @@ This model is designed to analyze **customer churn behavior** in a telecom datas
 
 ---
 
-## 🧠 Key Concepts Demonstrated
+##  Key Concepts Demonstrated
 
 * Dimensional modeling
 * Fact vs Dimension table design
@@ -107,7 +107,7 @@ This model is designed to analyze **customer churn behavior** in a telecom datas
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 data-warehouse-designs/
@@ -121,7 +121,7 @@ data-warehouse-designs/
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 * Add snowflake schema variations
 * Expand with additional datasets
@@ -129,7 +129,7 @@ data-warehouse-designs/
 
 ---
 
-## 📌 Author
+##  Author
 
 **Tshikosi Tshifhiwa**
 Aspiring Data Engineer
