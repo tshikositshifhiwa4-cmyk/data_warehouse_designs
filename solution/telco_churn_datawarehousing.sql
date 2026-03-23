@@ -202,3 +202,5 @@ select
 from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn] a;
 -----------------------------------------------------------------------------------------
 select count (*) from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn] a
+
+select * from fact_customer_churn
