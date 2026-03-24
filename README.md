@@ -97,6 +97,7 @@ This model is designed to analyze **customer churn behavior** in a telecom datas
 | quarter      | Quarter                |
 
 ---
+![telco_star_schema](https://github.com/user-attachments/assets/f462399b-a659-4583-bfa5-92c58361538c)
 
 ##  Key Concepts Demonstrated
 
