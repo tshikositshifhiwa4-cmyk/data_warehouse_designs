@@ -59,7 +59,7 @@ select distinct
 into dim_contract
 from [telco_churn_analysis].[dbo].[Telco_Cusomer_Churn];
 
---3. dim_payment (run from here)
+--3. dim_payment
 select distinct
 			row_number () over (order by PaymentMethod) as payment_id,
 			PaymentMethod as payment_method
@@ -111,7 +111,7 @@ create table fact_customer_churn (
 			churn_flag int
 	);
 ----------------------------------------------------------------------------------------
---inserting data into the fact table
+--inserting data into the fact table (first join)
 insert into fact_customer_churn (
 		   customer_id,
 		   contract_id,
